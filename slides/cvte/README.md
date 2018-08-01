@@ -1,185 +1,125 @@
+# 画板小工具
+---
+## 需求分析
 
+- 绘制图形
+- 编辑图形
+- 辅助调整
+- 流程图连线
 
-# iOS概述
+---
+### 需求——绘制图形
+  
+画直线、画矩形、画圆形、画三角形、以及其他形状  
+  
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/1.png)<!-- .element height="50%" width="100%" -->
+---
+### 需求——编辑图形  
+  
+选中图形时，显示边框线及拉伸线  
+  
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/2.png)<!-- .element height="50%" width="100%" -->
+---
+### 需求——编辑图形  
+  
+根据8个伸缩点，对图形进行自由拉伸  
+  
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/3.png)<!-- .element height="50%" width="100%" -->
+---
+### 需求——辅助调整
+  
+移动图形的时候，需要显示辅助对齐线   
+  
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/4.png)<!-- .element height="50%" width="100%" -->
+---
+### 需求——流程图连线
+  
+对每个图形之间用箭头进行连接   
+   
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/5.png)<!-- .element height="50%" width="100%" -->
+---
+### 需求——流程图连线
+  
+此连线应当跟随父图形移动  
+  
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/6.png)<!-- .element height="30%" width="100%" -->
+---
+  
+## 遇到的问题  
+  
+- 图形移动时的闪烁
+- 面向过程编程，代码臃肿
+- 多显示器鼠标位置问题
+- 判断点是否在图形上
+  
+---
+  
+### 问题——闪烁
+  
+原因A：刷新频次不够  
+  
+解决方案：  
+- 当涉及到移动的附属操作时（如对齐线的显示），都会把正在移动的图形再绘制一次
+
+---
+  
+### 问题——闪烁  
+  
+原因B：重绘时频繁调用了```Graphics.Clear(Color.White)```方法  
+  
+解决方案：  
+- 除放缩等涉及到整个屏幕的变换时清屏重绘外，其他时候在原来的基础上重绘
+- 对于正在移动的图形，先在画布上用背景色移动前的位置绘制，以达到删除图形的效果
+
+---
+### 问题——鲁棒性和可读性
+  
+解决方案：重构代码，将所有图形作为`GraphObject`的子类，每个类单独实现自身独特的移动和描绘。  
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/7.jpg)<!-- .element height="50%" width="100%" -->
 
 ---
 
-iOS
+### 问题——多显示器  
 
-
-![iOS](https://developer.apple.com/ios/images/ios-11-hero-large_2x.png) <!-- .element height="50%" -->
-
-iOS是一个苹果公司开发的运行于iPhone、iPad和iPod Touch等移动设备上的操作系统
-
-当前最新版本 iOS 10
-
-
+使用较多的两种移动鼠标的方法：  
+- ``` SetCursorPos(Point) ``` 会默认地将主频左上角当作坐标`(0,0)`。  
+- ``` Cursor.Position = Point ```，效果同上。   
+  
 ---
 
-## iOS SDK
+### 问题——多显示器  
 
-![](https://developer.apple.com/library/content/documentation/Miscellaneous/Conceptual/iPhoneOSTechOverview/Art/iOStech_intro_2x.png) <!-- .element height="30%" width="30%" -->
-
-- iOS SDK包含开发、安装、运行和测试iOS操作系统之上的应用软件所需的工具和接口
-  - 框架（Frameworks）:  动态共享的程序库和资源
-  - 工具: Xcode集成开发环境、 模拟器和开发文档等
-  - 其他
-
+解决方案：使用偏移量，通过API:``` mouse_event(int flags, int dx, int dy, uint data, int extraInfo) ```可以实现模拟鼠标的相对运动。  
+  
 ---
 
-## iOS的分层架构
-
-iOS 作为iOS应用软件（App）和硬件设备间的中间层提供了一组定义良好的系统接口以便你所开发的App可以方便与设备通讯交互
-
-![](https://developer.apple.com/library/content/documentation/Miscellaneous/Conceptual/iPhoneOSTechOverview/Art/SystemLayers_2x.png) <!-- .element height="30%"  -->
-
-<small>这些系统接口被以框架（Frameworks）的形式交付提供给开发者使用。一个框架是一个包含了一组动态共享的程序库和相应资源(例如头文件、图片、帮助应用等) 的目录。</small>
+### 问题——判断点是否在图形上  
+  
+解决方案：  
+- 对于含直线的图形，判断点是否在直线上；  
+- 对于圆，判断点到圆心的距离；
+- 对于曲线，选多个取样点，把两个相邻的取样点当作直线看待。  
+  
 ---
 
-## Cocoa Touch层框架
-
-构造iOS应用的核心框架
-
-- Address Book UI Framework
-- Event Kit UI Framework
-- Game Kit Framework
-- iAd Framework
-- Map Kit Framework
-- Message UI Framework
-- Twitter Framework
-- **UIKit Framework**
-
----
-
-## UIKit 框架
-
-其中UIKit 框架(UIKit.framework) 提供了开发图形化事件驱动iOS App的基础设施，包括
-
-- 基本应用管理
-- 用户界面管理
-- 视图控制器和视图
-- 触摸和运动事件
-- 文档模型和iCloud集成支持
-- 多任务、打印、通知等机制
-- 动画效果、内容分享等
-- …
-
----
-
-## Media 层框架
-
-包含了绘图、音频、视频处理技术的实现，用以实现iOS应用中的多媒体体验
-
-- Assets Library Framework
-- AV Foundation Framework
-- Core Audio
-- Core Graphics Framework
-- Core Image Framework
-- Core Text Framework
-- Core Video Framework
-- Image I/O Framework
-- Media Player Framework
-- OpenGL ES Framework
-- Quartz Core Framework
-- …
-
----
-
-## Core Services 层框架
-
-所有App都使用的基础系统服务
-
-- Accounts Framework
-- Address Book Framework
-- Core Data Framework
-- Core Foundation Framework
-- Core Location Framework
-- Core Media Framework
-- Core Telephony Framework
-- Event Kit Framework
-- Foundation Framework
-- System Configuration Framework
-
----
-
-## Foundation 框架
-
-Foundation framework (Foundation.framework) 提供了 Core Foundation框架中大部分功能特性的（Swift）封装
-
-- Collection data types (arrays, sets, and so on)
-- Bundles/String management
-- Date and time management
-- Preferences management
-- URL and stream manipulation
-- Threads and run loops
-- Regular expression matching
-- …
-
----
-
-## Core OS 层框架
-
-以上其他各项技术（框架）的实现基础
-
-- Accelerate Framework
-- Core Bluetooth
-- External Accessory Framework
-- Security Framework
-- System
-
-~~
-
-- System
-  - Threading
-  - Networking
-  - File-system access
-  - Standard I/O
-  - Bonjour and DNS services
-  - Locale information
-  - Memory allocation
-  - Math computations
-
----
-
-## 核心框架
-
-### UIKit
-### Foundation
-
----
-
-## 参考文档
-
-iOS技术概览（iOS Technology Overview）
-
-<small>
-https://developer.apple.com/library/ios/documentation/Miscellaneous/Conceptual/iPhoneOSTechOverview/Introduction/Introduction.html</small>
+### 问题——判断点是否在图形上  
+  
+更优的解决方案：  
+- 通过图形学的方法，即过该点任意画一条射线，求出此射线与边界的交点
+- 如果为偶数，则在图形外，奇数在图形内（若交点为顶点，则计2个交点）。  
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/8.png)<!-- .element height="50%" width="100%" -->
 
 
 ---
 
-## 开发工具－Xcode
- 
+## 感想
+  
+- 高效（Git）
+- 设计模式（Object Oriented, OO）
+- 总结（解决方案的复用）
+- 思考问题的方式（换一种思路）
+- 解决问题的方式（抽象工厂）
 
-![Xcode](https://help.apple.com/xcode/mac/8.0/en.lproj/GlobalArt/AppLanding.png)
-
-
-<small>https://help.apple.com/xcode/mac/8.0/</small>
-
-
----
-
-Start Developing iOS Apps
-
-<small>
-https://developer.apple.com/library/content/referencelibrary/GettingStarted/DevelopiOSAppsSwift/index.html
-</small>
-
----
-
-Hello World
-
-
----
-
-## The End
+--- 
+  
+## 谢谢！
