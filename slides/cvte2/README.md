@@ -1,12 +1,15 @@
-# 流程图工具——构架篇
+# 流程图工具 构架篇
 ---
-## 代码结构
-  
-- WinForm下
+## WinForm
 ---
-![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte2/screenshot/1.png)
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte2/screenshot/1.png)
 ---
-![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte2/screenshot/2.png)
---
-  
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte2/screenshot/2.png)
+---
+## WPF
+---
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte2/screenshot/3.png)
+---
+![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte2/screenshot/4.png)
+---
 ## 谢谢！
