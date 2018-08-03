@@ -12,37 +12,37 @@
   
 画直线、画矩形、画圆形、画三角形、以及其他形状  
   
-![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/1.png)<!-- .element height="50%" width="100%" -->
+![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte/screenshot/1.png)<!-- .element height="50%" width="100%" -->
 ---
 ### 需求——编辑图形  
   
 选中图形时，显示边框线及拉伸线  
   
-![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/2.png)<!-- .element height="50%" width="100%" -->
+![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte/screenshot/2.png)<!-- .element height="50%" width="100%" -->
 ---
 ### 需求——编辑图形  
   
 根据8个伸缩点，对图形进行自由拉伸  
   
-![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/3.png)<!-- .element height="50%" width="100%" -->
+![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte/screenshot/3.png)<!-- .element height="50%" width="100%" -->
 ---
 ### 需求——辅助调整
   
 移动图形的时候，需要显示辅助对齐线   
   
-![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/4.png)<!-- .element height="50%" width="100%" -->
+![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte/screenshot/4.png)<!-- .element height="50%" width="100%" -->
 ---
 ### 需求——流程图连线
   
 对每个图形之间用箭头进行连接   
    
-![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/5.png)<!-- .element height="50%" width="100%" -->
+![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte/screenshot/5.png)<!-- .element height="50%" width="100%" -->
 ---
 ### 需求——流程图连线
   
 此连线应当跟随父图形移动  
   
-![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/6.png)<!-- .element height="30%" width="100%" -->
+![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte/screenshot/6.png)<!-- .element height="30%" width="100%" -->
 ---
   
 ## 遇到的问题  
@@ -75,7 +75,7 @@
 ### 问题——鲁棒性和可读性
   
 解决方案：重构代码，将所有图形作为`GraphObject`的子类，每个类单独实现自身独特的移动和描绘。  
-![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/7.jpg)<!-- .element height="50%" width="100%" -->
+![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte/screenshot/7.jpg)<!-- .element height="50%" width="100%" -->
 
 ---
 
@@ -107,7 +107,7 @@
 更优的解决方案：  
 - 通过图形学的方法，即过该点任意画一条射线，求出此射线与边界的交点
 - 如果为偶数，则在图形外，奇数在图形内（若交点为顶点，则计2个交点）。  
-![](https://github.com/triumphalLiu/GithubHomePage/raw/master/slides/cvte/screenshot/8.png)<!-- .element height="50%" width="100%" -->
+![](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte/screenshot/8.png)<!-- .element height="50%" width="100%" -->
 
 
 ---
