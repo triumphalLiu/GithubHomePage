@@ -25,6 +25,8 @@
 ---
 ## Part2. 代码和框架
 ---
+![代码图](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte3/screenshot/code.png)
+---
 ![结构图](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte3/screenshot/struct0.png)
 ---
 ![结构图](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte3/screenshot/struct1.png)
@@ -32,8 +34,6 @@
 ![DrawMode](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte3/screenshot/draw.png)
 ---
 ![LinkMode](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte3/screenshot/link.png)
----
-![代码图](https://github.com/triumphalLiu/Slides/raw/master/slides/cvte3/screenshot/code.png)
 ---
 ## Part3. 鸣谢
 - 谷哥、斌哥、弘哥提供的大量改进意见和解决方案
